@@ -17,10 +17,17 @@ public class FacultyController {
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
+
     @GetMapping
     public Collection<Faculty> getFaculties(@RequestParam String color) {
         return facultyService.getFaculties(color);
     }
+
+    @GetMapping("/find")
+    public Collection<Faculty> getAll() {
+        return facultyService.getAll();
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFacultyInfo(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
@@ -29,6 +36,7 @@ public class FacultyController {
         }
         return ResponseEntity.ok(faculty);
     }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.addFaculty(faculty);

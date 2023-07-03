@@ -22,6 +22,11 @@ public class StudentController {
         return studentService.getAllByAge(age);
     }
 
+    @GetMapping("/find")
+    public Collection<Student> getAll() {
+        return studentService.getAll();
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<Student> getInfoStudent(@PathVariable Long id) {
         Student Student = studentService.findStudent(id);

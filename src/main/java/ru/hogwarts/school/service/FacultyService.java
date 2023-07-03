@@ -9,6 +9,8 @@ public interface FacultyService {
 
     Faculty findFaculty (Long id);
 
+    Collection<Faculty> getAll();
+
     Faculty editFaculty(Faculty faculty);
 
     void deleteFaculty(Long id);
