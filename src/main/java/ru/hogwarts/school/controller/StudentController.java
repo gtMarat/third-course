@@ -69,5 +69,18 @@ public class StudentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @GetMapping("/count")
+    public int getCountOfStudents() {
+        return studentService.getCountOfStudents();
+    }
+    @GetMapping("/average-age")
+    public int getAverageAge() {
+        return studentService.getAverageAge();
+    }
+    @GetMapping("/five-ordered-by-id")
+    public Collection<Student> getFiveStudentsOrderById() {
+        return studentService.getFiveStudentsOrderById();
+    }
 }
 
