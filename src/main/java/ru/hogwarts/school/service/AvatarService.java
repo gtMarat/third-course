@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.dto.AvatarDTO;
 import ru.hogwarts.school.model.Avatar;
 
 import java.io.IOException;
@@ -11,5 +12,5 @@ public interface AvatarService {
 
     Avatar findById(Long studentId);
 
-    Collection<Avatar> getAvatars(int pageNumber, int pageSize);
+    Collection<AvatarDTO> getAvatars(int pageNumber, int pageSize);
 }
