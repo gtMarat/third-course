@@ -7,7 +7,9 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -75,12 +77,20 @@ public class StudentController {
         return studentService.getCountOfStudents();
     }
     @GetMapping("/average-age")
-    public int getAverageAge() {
+    public double getAverageAge() {
         return studentService.getAverageAge();
     }
     @GetMapping("/five-ordered-by-id")
     public Collection<Student> getFiveStudentsOrderById() {
         return studentService.getFiveStudentsOrderById();
+    }
+    @GetMapping( "/list-astarte-names-uppercase")
+    public ResponseEntity<List<String>> listAstarteNamesUppercase(){
+        List<String> result = new ArrayList<>(studentService.listAstarteNamesUppercase());
+        if (result.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
 

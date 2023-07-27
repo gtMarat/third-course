@@ -75,4 +75,18 @@ public class FacultyController {
     public Collection<Student> studentsByFaculty(@PathVariable long id) {
         return facultyService.studentsByFaculty(id);
     }
+
+    @GetMapping("/longest-facutly-name")
+    public ResponseEntity<String> longestFacultyName() {
+        String result = facultyService.longestFacultyName();
+        if (result == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("int-sum")
+    public Integer intSum() {
+        return facultyService.intSum();
+    }
 }

@@ -21,4 +21,8 @@ public interface FacultyService {
     Collection<Faculty> filter(String color, String name);
 
     Collection<Student> studentsByFaculty(Long facultyId);
+
+    public String longestFacultyName();
+
+    public Integer intSum();
 }

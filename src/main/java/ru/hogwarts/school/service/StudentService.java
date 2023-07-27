@@ -22,8 +22,10 @@ public interface StudentService {
     Faculty facultyOfStudentBy(Long studentId);
 
     int getCountOfStudents();
-    int getAverageAge();
+    double getAverageAge();
     List<Student> getFiveStudentsOrderById();
+
+    List<String> listAstarteNamesUppercase();
 
 
 

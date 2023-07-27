@@ -94,16 +94,29 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int getAverageAge() {
+    public double getAverageAge() {
         logger.info("getAverageAge method was invoked");
-
-        return studentRepository.getAverageAge();
+        return studentRepository.findAll()
+                .stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
     }
-
     @Override
     public List<Student> getFiveStudentsOrderById() {
         logger.info("getFiveStudentsOrderById method was invoked");
 
         return studentRepository.getFiveStudentsOrderById();
+    }
+    public List<String> listAstarteNamesUppercase() {
+        logger.info("listAstarteNamesUppercase method was invoked");
+
+        return studentRepository.findAll().stream()
+                .parallel()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
