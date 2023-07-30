@@ -34,10 +34,10 @@ public class StudentServiceImpl implements StudentService {
     public Student findStudent(Long id) {
         logger.info("findStudent method was invoked");
 
-        return studentRepository.findById(id).orElseGet(() ->{
+        return studentRepository.findById(id).orElseGet(() -> {
             logger.warn("Student with id{} has not been found in database ", id);
-        return null;
-                });
+            return null;
+        });
     }
 
     @Override
@@ -102,12 +102,14 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .orElse(0);
     }
+
     @Override
     public List<Student> getFiveStudentsOrderById() {
         logger.info("getFiveStudentsOrderById method was invoked");
 
         return studentRepository.getFiveStudentsOrderById();
     }
+
     public List<String> listAstarteNamesUppercase() {
         logger.info("listAstarteNamesUppercase method was invoked");
 
@@ -118,5 +120,56 @@ public class StudentServiceImpl implements StudentService {
                 .filter(s -> s.startsWith("A"))
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void threads() {
+        List<Student> students = studentRepository.findAll();
+
+        printStudentName(students.get(0));
+        printStudentName(students.get(1));
+
+        new Thread(() -> {
+            printStudentName(students.get(2));
+            printStudentName(students.get(3));
+        }).start();
+
+        new Thread(() -> {
+            printStudentName(students.get(4));
+            printStudentName(students.get(5));
+        }).start();
+    }
+
+    private void printStudentName(Student student) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(student.getName());
+    }
+
+    @Override
+    public void synchronizedThreads() {
+        List<Student> students = studentRepository.findAll();
+
+        printStudentNameSynchronized(students.get(0));
+        printStudentNameSynchronized(students.get(1));
+
+        new Thread(() -> {
+            printStudentNameSynchronized(students.get(2));
+            printStudentNameSynchronized(students.get(3));
+        }).start();
+
+        new Thread(() -> {
+            printStudentNameSynchronized(students.get(4));
+            printStudentNameSynchronized(students.get(5));
+        }).start();
+
+    }
+
+    private synchronized void printStudentNameSynchronized(Student student) {
+
+        System.out.println(student.getName());
     }
 }

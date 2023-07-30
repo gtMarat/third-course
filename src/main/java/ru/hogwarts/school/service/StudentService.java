@@ -27,6 +27,10 @@ public interface StudentService {
 
     List<String> listAstarteNamesUppercase();
 
+    public void threads();
+
+    public void synchronizedThreads();
+
 
 
 

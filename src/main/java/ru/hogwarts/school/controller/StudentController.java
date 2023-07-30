@@ -63,8 +63,9 @@ public class StudentController {
     public Collection<Student> findByAgeBetween(@RequestParam int min, @RequestParam int max) {
         return studentService.findByAgeBetween(min, max);
     }
+
     @GetMapping("/{id}/faculty")
-    public ResponseEntity<Faculty> facultyByStudent(@PathVariable Long id){
+    public ResponseEntity<Faculty> facultyByStudent(@PathVariable Long id) {
         Faculty result = studentService.facultyOfStudentBy(id);
         if (result == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -76,21 +77,34 @@ public class StudentController {
     public int getCountOfStudents() {
         return studentService.getCountOfStudents();
     }
+
     @GetMapping("/average-age")
     public double getAverageAge() {
         return studentService.getAverageAge();
     }
+
     @GetMapping("/five-ordered-by-id")
     public Collection<Student> getFiveStudentsOrderById() {
         return studentService.getFiveStudentsOrderById();
     }
-    @GetMapping( "/list-astarte-names-uppercase")
-    public ResponseEntity<List<String>> listAstarteNamesUppercase(){
+
+    @GetMapping("/list-astarte-names-uppercase")
+    public ResponseEntity<List<String>> listAstarteNamesUppercase() {
         List<String> result = new ArrayList<>(studentService.listAstarteNamesUppercase());
         if (result.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/threads")
+    public void threads() {
+        studentService.threads();
+    }
+
+    @GetMapping("/synchronized-threads")
+    public void synchronizedThreads() {
+        studentService.synchronizedThreads();
     }
 }
 
